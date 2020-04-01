@@ -1,6 +1,8 @@
 #include "ttt_helpers.h"
+#include <stdio.h>
 
-
+/*counts empty spaces, 1==empty, 2==X, 3==O, zero is not valid */
+/* board is an 18 bit value encoding 9 board positions with pairs of bits */
 int how_many_moves(uint32_t board)
 {
 	int x;
@@ -9,7 +11,7 @@ int how_many_moves(uint32_t board)
 
 	for(x=0;x<9;x++)
 	{
-		 if(board & (mask<<(x<<1)) == 1<<(x<<1)) count++;
+		 if((board & (mask<<(x<<1))) == (1<<(x<<1))) count++;
 	}
 	return count;
 }
@@ -49,12 +51,29 @@ uint32_t add_a_move(uint32_t board, int player, int where)
 
 	if((player>3)||(player<2)) return 0;
 	if((where>8)||(where<0)) return 0;
-	if(board& 3<<(where<<1) != 1<<(where<<1)) return 0;
+	if((board&( 3<<(where<<1))) != (1<<(where<<1))) return 0;
 	mask = ~(3<<(where<<1));
-	board=(board & mask)|(player<<(where<1));
+	board=(board & mask)|(player<<(where<<1));
 	return board;
 }
 	
+void print_board(uint32_t board)
+{
+	char vals[9]="         ";
+	int x;
+
+	for(x=0;x<9;x++)
+	{
+		if((board & 3<<(x<<1))==( 1<<(x<<1))) vals[x]=' ';
+		if((board & 3<<(x<<1))==( 2<<(x<<1))) vals[x]='X';
+		if((board & 3<<(x<<1))==( 3<<(x<<1))) vals[x]='O';
+	}
+	printf("%c|%c|%c\n",vals[0],vals[1],vals[2]);
+	printf("______\n");
+	printf("%c|%c|%c\n",vals[3],vals[4],vals[5]);
+	printf("______\n");
+	printf("%c|%c|%c\n\n\n",vals[6],vals[7],vals[8]);
+}
 
 
 
