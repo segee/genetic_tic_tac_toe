@@ -30,8 +30,8 @@ int check_for_win(uint32_t board)
 
 	for(x=0;x<8;x++)
 	{
-		if(board&mask[x]==all3s&mask[x]) return 3;
-		if(board&mask[x]==all2s&mask[x]) return 2;
+		if((board&mask[x])==(all3s&mask[x])) return 3;
+		if((board&mask[x])==(all2s&mask[x])) return 2;
 	}
 	return 0;
 }
