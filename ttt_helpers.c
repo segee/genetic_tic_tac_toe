@@ -11,11 +11,14 @@ int how_many_moves(uint32_t board)
 
 	for(x=0;x<9;x++)
 	{
-		 if((board & (mask<<(x<<1))) == (1<<(x<<1))) count++;
+		 if((get_square(board,x)==1)) count++;
 	}
 	return count;
 }
-
+int get_square(uint32_t board, int square)
+{
+	return (board & (3<<(square<<1)))>>(square<<1);
+}
 
 
 
