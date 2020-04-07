@@ -78,5 +78,13 @@ void print_board(uint32_t board)
 	printf("%c|%c|%c\n\n\n",vals[6],vals[7],vals[8]);
 }
 
+int game_done(uint32_t board)
+{
+   if(how_many_moves(board)!=0 && check_for_win(board)==0)return 0; //not done
+   if(check_for_win(board)==2) return 2;
+   if(check_for_win(board)==3) return 3;
+   return 1;
+}
+
 
 
