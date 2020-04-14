@@ -54,7 +54,7 @@ uint32_t add_a_move(uint32_t board, int player, int where)
 
 	if((player>3)||(player<2)) return 0;
 	if((where>8)||(where<0)) return 0;
-	if((board&( 3<<(where<<1))) != (1<<(where<<1))) return 0;
+	if(get_square(board,where)!=1) return 0;
 	mask = ~(3<<(where<<1));
 	board=(board & mask)|(player<<(where<<1));
 	return board;
@@ -67,9 +67,9 @@ void print_board(uint32_t board)
 
 	for(x=0;x<9;x++)
 	{
-		if((board & 3<<(x<<1))==( 1<<(x<<1))) vals[x]=' ';
-		if((board & 3<<(x<<1))==( 2<<(x<<1))) vals[x]='X';
-		if((board & 3<<(x<<1))==( 3<<(x<<1))) vals[x]='O';
+		if(get_square(board,x)== 1) vals[x]=' ';
+		if(get_square(board,x)== 2) vals[x]='X';
+		if(get_square(board,x)== 3) vals[x]='O';
 	}
 	printf("%c|%c|%c\n",vals[0],vals[1],vals[2]);
 	printf("______\n");
