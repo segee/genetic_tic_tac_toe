@@ -51,12 +51,14 @@ uint32_t add_a_move(uint32_t board, int player, int where)
 
 	/* returns new board if everything is ok, 0 for error */
 	uint32_t mask;
+	static int calls=1;
 
 	if((player>3)||(player<2)) return 0;
 	if((where>8)||(where<0)) return 0;
 	if(get_square(board,where)!=1) return 0;
 	mask = ~(3<<(where<<1));
 	board=(board & mask)|(player<<(where<<1));
+//	printf("Calls:%d\n",calls++);
 	return board;
 }
 	
